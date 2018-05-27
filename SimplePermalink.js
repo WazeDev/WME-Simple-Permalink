@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            WME Simple Permalink (from WME KeepMyLayers)
 // @namespace       https://greasyfork.org/users/11629-TheLastTaterTot
-// @version         0.1.6
+// @version         2018.05.27.01
 // @description     Shortens WME permalinks by removing any layer and filter specifications
 // @author          TheLastTaterTot
 // @include         https://beta.waze.com/*editor*
@@ -60,7 +60,7 @@ var initSimplePermalink = function() {
 
         document.head.appendChild(kmlStyle);
 
-        var wazePermalinkEl = document.querySelector('.WazeControlPermalink>a.fa-link'),
+        var wazePermalinkEl = document.querySelector('.WazeControlPermalink>a.permalink'),
             wazeCopyPlNote = wazePermalinkEl.getAttribute('data-original-title'),
             kmlCurrentPl = getKMLPermalink(wazePermalinkEl.getAttribute('href')),
             wazeControlPermalinkEl = wazePermalinkEl.parentNode,
