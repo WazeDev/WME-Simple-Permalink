@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            WME Simple Permalink (from WME KeepMyLayers)
 // @namespace       https://greasyfork.org/users/11629-TheLastTaterTot
-// @version         2018.05.29.01
+// @version         2018.05.29.02
 // @description     Shortens WME permalinks by removing any layer and filter specifications
 // @author          TheLastTaterTot
 // @include         https://beta.waze.com/*editor*
@@ -91,6 +91,24 @@ var initSimplePermalink = function() {
             newPL = newPL.replace(lon, Math.round(centroid.lon * 100000) / 100000);
             newPL = newPL.replace(lat, Math.round(centroid.lat * 100000) / 100000);
             newPL = newPL.replace(zoom, W.map.zoom);
+
+            let selectedFeatures = WazeWrap.getSelectedFeatures();
+            if(selectedFeatures.length > 0){
+                if(selectedFeatures[0].model.type === "mapComment")
+                    newPL += `&mapComments=${selectedFeatures[0].model.attributes.id}`;
+                else if(selectedFeatures[0].model.type === "venue")
+                    newPL += `&venues=${selectedFeatures[0].model.attributes.id}`;
+                else if(selectedFeatures[0].model.type === "segment"){
+                    newPL += "&segments=";
+                    for(let i=0; i<selectedFeatures.length; i++){
+                        if((i+1) < selectedFeatures.length)
+                            newPL += `${selectedFeatures[i].model.attributes.id},`;
+                        else
+                            newPL += `${selectedFeatures[i].model.attributes.id}`;
+                    }
+                }
+            }
+
             copyPL(newPL);
 
         };
