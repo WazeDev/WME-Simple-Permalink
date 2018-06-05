@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            WME Simple Permalink (from WME KeepMyLayers)
 // @namespace       https://greasyfork.org/users/11629-TheLastTaterTot
-// @version         2018.05.29.02
+// @version         2018.06.05.01
 // @description     Shortens WME permalinks by removing any layer and filter specifications
 // @author          TheLastTaterTot
 // @include         https://beta.waze.com/*editor*
