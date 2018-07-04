@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            WME Simple Permalink (from WME KeepMyLayers)
 // @namespace       https://greasyfork.org/users/11629-TheLastTaterTot
-// @version         2018.06.05.01
+// @version         2018.07.03.01
 // @description     Shortens WME permalinks by removing any layer and filter specifications
 // @author          TheLastTaterTot
 // @include         https://beta.waze.com/*editor*
@@ -67,8 +67,8 @@ var initSimplePermalink = function() {
         var kmlKeyPresses = Array(2);
 
         var getKMLPermalink = function(currPl) {
-            var kmlShortPL = currPl.substr(currPl.lastIndexOf('editor')).replace(/&[^&]*Filter=[^&]*|&s=(\d+)/ig,'');
-            return location.origin + '/' + kmlShortPL;
+            var kmlShortPL = currPl.substr(currPl.lastIndexOf('editor')+7).replace(/&[^&]*Filter=[^&]*|&s=(\d+)/ig,'');
+            return location.origin + location.pathname + kmlShortPL;
         };
 
         var copyPL = function(PLtoCopy){
