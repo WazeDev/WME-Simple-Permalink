@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            WME Simple Permalink (from WME KeepMyLayers)
 // @namespace       https://greasyfork.org/users/11629-TheLastTaterTot
-// @version         2019.05.03.01
+// @version         2019.11.21.01
 // @description     Shortens WME permalinks by removing any layer and filter specifications
 // @author          TheLastTaterTot
 // @include         https://beta.waze.com/*editor*
@@ -13,16 +13,26 @@
 // ==/UserScript==
 /* jshint -W097 */
 
+/* global W */
+/* global OL */
+/* ecmaVersion 2017 */
+/* global $ */
+/* global I18n */
+/* global _ */
+/* global WazeWrap */
+/* global require */
+/* eslint curly: ["warn", "multi-or-nest"] */
+
 function loadSettings() {
     var loadedSettings = $.parseJSON(localStorage.getItem("WMESimplePermalink_Settings"));
     var defaultSettings = {
         CopyPermalinkShortcut: ''
     };
     settings = loadedSettings ? loadedSettings : defaultSettings;
-    for (var prop in defaultSettings)
+    for (var prop in defaultSettings){
         if (!settings.hasOwnProperty(prop))
             settings[prop] = defaultSettings[prop];
-
+    }
 }
 
 function saveSettings() {
@@ -35,24 +45,19 @@ function saveSettings() {
             var TempKeys = "";
             if (W.accelerators.Actions[name].group == 'wmesimplepermalink') {
                 if (W.accelerators.Actions[name].shortcut) {
-                    if (W.accelerators.Actions[name].shortcut.altKey === true) {
+                    if (W.accelerators.Actions[name].shortcut.altKey === true)
                         TempKeys += 'A';
-                    }
-                    if (W.accelerators.Actions[name].shortcut.shiftKey === true) {
+                    if (W.accelerators.Actions[name].shortcut.shiftKey === true)
                         TempKeys += 'S';
-                    }
-                    if (W.accelerators.Actions[name].shortcut.ctrlKey === true) {
+                    if (W.accelerators.Actions[name].shortcut.ctrlKey === true)
                         TempKeys += 'C';
-                    }
-                    if (TempKeys !== "") {
+                    if (TempKeys !== "")
                         TempKeys += '+';
-                    }
-                    if (W.accelerators.Actions[name].shortcut.keyCode) {
+                    if (W.accelerators.Actions[name].shortcut.keyCode)
                         TempKeys += W.accelerators.Actions[name].shortcut.keyCode;
-                    }
-                } else {
-                    TempKeys = "-1";
                 }
+                else
+                    TempKeys = "-1";
                 localsettings[name] = TempKeys;
             }
         }
@@ -63,8 +68,7 @@ function saveSettings() {
 
 
 var initSimplePermalink = function() {
-    if (!document.getElementById('kmlPLPlaceholder')) {
-        var kmlKeyPresses = Array(2);
+    if (!document.getElementById('kmlPLPlaceholder')) {        var kmlKeyPresses = Array(2);
 
         var getKMLPermalink = function(currPl) {
             var kmlShortPL = currPl.substr(currPl.lastIndexOf('editor')+6).replace(/&[^&]*Filter=[^&]*|&s=(\d+)/ig,'').replace("/", "");
@@ -222,14 +226,10 @@ var initSimplePermalink = function() {
 };
 
 function bootstrap(tries = 1) {
-    if (W && W.map &&
-        W.model && $ &&
-        $('.WazeControlPermalink').length > 0 &&
-        WazeWrap.Ready) {
+    if (W && W.map && W.model && $ && $('.WazeControlPermalink').length > 0 && WazeWrap.Ready)
         initSimplePermalink();
-    } else if (tries < 1000) {
+    else if (tries < 1000)
         setTimeout(function () {bootstrap(tries++);}, 200);
-    }
 }
 
 bootstrap();
