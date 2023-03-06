@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            WME Simple Permalink (from WME KeepMyLayers)
 // @namespace       https://greasyfork.org/users/11629-TheLastTaterTot
-// @version         2020.06.01.01
+// @version         2023.03.06.01
 // @description     Shortens WME permalinks by removing any layer and filter specifications
 // @author          TheLastTaterTot
 // @include         https://beta.waze.com/*editor*
@@ -158,8 +158,8 @@ var initSimplePermalink = function() {
 
         document.head.appendChild(kmlStyle);
 
-        var wazePermalinkEl = document.querySelector('.WazeControlPermalink>div>a.permalink'),
-            wazeCopyPlNote = wazePermalinkEl.getAttribute('data-original-title'),
+        var wazePermalinkEl = document.querySelector('.WazeControlPermalink>a.permalink'),
+            wazeCopyPlNote = wazePermalinkEl.getAttribute('title'),
             kmlCurrentPl = getKMLPermalink(wazePermalinkEl.getAttribute('href')),
             wazeControlPermalinkEl = wazePermalinkEl.parentNode,
             kmlMapPLContainer = document.createElement('div'),
@@ -221,6 +221,7 @@ var initSimplePermalink = function() {
         try {
             // Hide WME permalink, but allow TB to overrule with display: none;
             wazePermalinkEl.style.visibility = 'hidden';
+            document.getElementsByClassName('livemap-link')[0].style.paddingRight = '50px';
         } catch (err) {}
     }
 };
