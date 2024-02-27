@@ -4,12 +4,14 @@
 // @version         2023.03.06.01
 // @description     Shortens WME permalinks by removing any layer and filter specifications
 // @author          TheLastTaterTot
-// @include         https://beta.waze.com/*editor*
-// @include         https://www.waze.com/*editor*
-// @exclude         https://www.waze.com/*user/editor/*
+// @match           https://beta.waze.com/*editor*
+// @match           https://www.waze.com/*editor*
+// @exclude         https://www.waze.com/*user/*editor/*
 // @grant           none
 // @require         https://greasyfork.org/scripts/24851-wazewrap/code/WazeWrap.js
 // @run-at          document-end
+// @downloadURL     https://update.greasyfork.org/scripts/18089/WME%20Simple%20Permalink%20%28from%20WME%20KeepMyLayers%29.user.js
+// @updateURL       https://update.greasyfork.org/scripts/18089/WME%20Simple%20Permalink%20%28from%20WME%20KeepMyLayers%29.meta.js
 // ==/UserScript==
 /* jshint -W097 */
 
